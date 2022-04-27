@@ -2,15 +2,12 @@
 
 namespace tPayne\BehatMailExtension\Driver;
 
-use Http\Adapter\Guzzle6\Client;
+use GuzzleHttp\Client;
 use tPayne\BehatMailExtension\MessageFactory;
 
 class Mailhog implements Mail
 {
 
-    /**
-     * @var \rpkamp\Mailhog\MailhogClient
-     */
     private $client;
 
     public function __construct(Client $client)
