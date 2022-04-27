@@ -70,8 +70,7 @@ class MailCatcher implements Mail
             $html = $this->client->get("/messages/{$message['id']}.html")
                 ->getBody()
                 ->getContents();
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $html = sprintf('Error while retrieving HTML message "%s": %s', $message['id'], $exception->getMessage());
         }
 
@@ -79,8 +78,7 @@ class MailCatcher implements Mail
             $text = $this->client->get("/messages/{$message['id']}.plain")
                 ->getBody()
                 ->getContents();
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $text = sprintf('Error while retrieving Plain message "%s": %s', $message['id'], $exception->getMessage());
         }
 
