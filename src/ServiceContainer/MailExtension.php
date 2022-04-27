@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use tPayne\BehatMailExtension\Driver\Mail;
 use tPayne\BehatMailExtension\ServiceContainer\Driver\MailCatcherFactory;
+use tPayne\BehatMailExtension\ServiceContainer\Driver\MailhogFactory;
 use tPayne\BehatMailExtension\ServiceContainer\Driver\MailTrapFactory;
 
 class MailExtension implements Extension
@@ -88,6 +89,8 @@ class MailExtension implements Extension
             case 'mailtrap':
                 $factory = new MailTrapFactory();
                 break;
+            case 'mailhog':
+                $factory = new MailhogFactory();
         }
 
         $mail = $factory->buildDriver($config);

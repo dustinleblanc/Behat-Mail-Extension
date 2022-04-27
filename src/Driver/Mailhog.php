@@ -1,0 +1,58 @@
+<?php
+
+namespace tPayne\BehatMailExtension\Driver;
+
+use Http\Adapter\Guzzle6\Client;
+use tPayne\BehatMailExtension\MessageFactory;
+
+class Mailhog implements Mail
+{
+
+    /**
+     * @var \rpkamp\Mailhog\MailhogClient
+     */
+    private $client;
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLatestMessage()
+    {
+        return reset($this->getMessages());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMessages()
+    {
+        $body = $this->client->get('/api/v1/messages')->getBody()->getContents();
+        $messageData = json_decode($body, true);
+        return array_map(function ($message) {
+            return $this->mapToMessage($message);
+        }, $messageData);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteMessages()
+    {
+        $this->client->delete('/api/v1/messages');
+    }
+
+    /**
+     * @param $message
+     *
+     * @return \tPayne\BehatMailExtension\Message
+     */
+    private function mapToMessage($message)
+    {
+        return MessageFactory::fromMailHog($message);
+    }
+}

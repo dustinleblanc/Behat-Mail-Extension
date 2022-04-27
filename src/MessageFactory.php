@@ -51,4 +51,22 @@ class MessageFactory
     {
         return preg_replace('/([<>])/', '', $address);
     }
+
+  /**
+   * @param $message
+   *
+   * @return \tPayne\BehatMailExtension\Message
+   */
+    public static function fromMailHog($message)
+    {
+        $castMessage = \rpkamp\Mailhog\Message\MessageFactory::fromMailhogResponse($message);
+        return new Message(
+            self::sanitizeEmailAddress($castMessage->sender),
+            self::sanitizeEmailAddress($castMessage->sender),
+            $castMessage->subject,
+            $castMessage->body,
+            $castMessage->body,
+            $message['Created']
+        );
+    }
 }

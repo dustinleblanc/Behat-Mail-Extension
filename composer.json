@@ -3,7 +3,9 @@
     "description": "An extension for testing emails with Behat",
     "require": {
         "guzzlehttp/guzzle": "^6.2",
-        "behat/behat": "^3.0"
+        "behat/behat": "^3.0",
+        "rpkamp/mailhog-client": "^0.5.2",
+        "php-http/guzzle6-adapter": "^2.0"
     },
     "require-dev": {
         "phpspec/phpspec": "^7.0",
