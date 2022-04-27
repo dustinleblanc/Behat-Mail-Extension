@@ -20,7 +20,7 @@ class Mailhog implements Mail
      */
     public function getLatestMessage()
     {
-        return reset($this->getMessages());
+        return $this->getMessages()[0];
     }
 
     /**

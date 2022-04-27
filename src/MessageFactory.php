@@ -61,12 +61,12 @@ class MessageFactory
     {
         $castMessage = \rpkamp\Mailhog\Message\MessageFactory::fromMailhogResponse($message);
         return new Message(
-            self::sanitizeEmailAddress($castMessage->sender),
-            self::sanitizeEmailAddress($castMessage->sender),
+            self::sanitizeEmailAddress($castMessage->sender->emailAddress),
+            self::sanitizeEmailAddress($castMessage->sender->emailAddress),
             $castMessage->subject,
             $castMessage->body,
             $castMessage->body,
-            $message['Created']
+            explode('.', $message['Created'])[0]
         );
     }
 }
