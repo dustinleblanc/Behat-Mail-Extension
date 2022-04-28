@@ -60,9 +60,13 @@ class MessageFactory
     public static function fromMailHog($message)
     {
         $castMessage = \rpkamp\Mailhog\Message\MessageFactory::fromMailhogResponse($message);
+        $to = [];
+        foreach ($castMessage->recipients as $recipient) {
+          $to[] = $recipient;
+        }
         return new Message(
             self::sanitizeEmailAddress($castMessage->sender->emailAddress),
-            self::sanitizeEmailAddress($castMessage->recipients[0]->emailAddress),
+            self::sanitizeEmailAddress($to[0]->emailAddress),
             $castMessage->subject,
             $castMessage->body,
             $castMessage->body,
