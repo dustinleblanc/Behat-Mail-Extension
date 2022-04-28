@@ -62,7 +62,7 @@ class MessageFactory
         $castMessage = \rpkamp\Mailhog\Message\MessageFactory::fromMailhogResponse($message);
         return new Message(
             self::sanitizeEmailAddress($castMessage->sender->emailAddress),
-            self::sanitizeEmailAddress($castMessage->sender->emailAddress),
+            self::sanitizeEmailAddress($castMessage->recipients[0]->emailAddress),
             $castMessage->subject,
             $castMessage->body,
             $castMessage->body,
